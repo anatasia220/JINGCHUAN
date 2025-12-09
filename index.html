@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>靜川活瓷 JingChuan | 靜下來，喝得更好</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #94bdd4; 
+            --color-dark: #333F48;    
+            --color-bg: #F5F3EF;      
+            --font-serif: 'Noto Serif TC', serif;
+            --font-sans: 'Noto Sans TC', sans-serif;
+            --font-eng: 'Cinzel', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; }
+        a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- 導航列 --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: all 0.5s ease;
+        }
+        nav.scrolled {
+            background: rgba(245, 243, 239, 0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Logo 區域：方案二 (分隔線) + 強制不換行 */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-logo-img {
+            height: 48px;
+            width: auto;
+            mix-blend-mode: multiply;
+        }
+
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.2;
+            padding-left: 15px;
+            border-left: 1px solid #bbb;
+        }
+
+        .brand-ch {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-dark);
+            letter-spacing: 2px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .brand-en {
+            font-family: var(--font-eng);
+            font-size: 0.65rem;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .nav-links { display: flex; gap: 3rem; }
+        .nav-links a { font-size: 0.9rem; letter-spacing: 1px; position: relative; white-space: nowrap; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: currentColor; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- Hero Section --- */
+        #hero {
+            position: relative; height: 100vh; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; overflow: hidden;
+            background: linear-gradient(to bottom, #f5f3ef 0%, #dbe9f0 100%);
+        }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.6; }
+        .hero-content {
+            position: relative; z-index: 2; opacity: 0;
+            transform: translateY(30px); animation: fadeUp 1.5s ease forwards 0.5s;
+        }
+        .hero-title { 
+            font-size: 4rem; 
+            margin-bottom: 1rem; 
+            color: var(--color-dark); 
+            letter-spacing: 0.5rem;
+            white-space: nowrap; 
+        }
+        .hero-subtitle {
+            font-size: 1.2rem; font-weight: 300; letter-spacing: 0.3rem;
+            color: var(--color-primary); text-transform: uppercase; font-family: var(--font-eng);
+        }
+        .scroll-indicator {
+            position: absolute; bottom: 50px; left: 50%;
+            transform: translateX(-50%); z-index: 2; cursor: pointer;
+        }
+        .scroll-drop {
+            width: 45px; height: auto;
+            mix-blend-mode: multiply;
+            animation: dropDown 2.5s infinite ease-in-out;
+        }
+
+        /* --- 通用 Section --- */
+        .section { padding: 6rem 10%; position: relative; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { 
+            font-size: 2.5rem; 
+            margin-bottom: 1rem; 
+            color: var(--color-dark);
+            white-space: nowrap; 
+        }
+        .section-header p { color: var(--color-primary); font-family: var(--font-eng); letter-spacing: 2px; }
+
+        /* --- 關於我們 --- */
+        .about-content { max-width: 800px; margin: 0 auto; }
+        .about-quote { text-align: center; font-size: 1.4rem; margin-bottom: 3rem; color: var(--color-primary); font-family: var(--font-serif); font-weight: 600; letter-spacing: 2px; }
+        .about-text { font-weight: 300; margin-bottom: 2rem; text-align: justify; text-justify: inter-ideograph; line-height: 2.2; letter-spacing: 1.5px; color: #555; }
+        .about-welcome { text-align: center; margin-top: 3rem; font-weight: 500; color: var(--color-dark); letter-spacing: 2px; }
+
+        /* --- 活瓷科技 --- */
+        .tech-intro { text-align: center; max-width: 800px; margin: 0 auto 4rem auto; font-size: 1.1rem; color: #555; }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
+        .tech-card { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8); padding: 2rem; border-radius: 8px; text-align: center; transition: transform 0.3s ease; }
+        .tech-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.9); }
+        .tech-icon { font-size: 2rem; margin-bottom: 1rem; color: var(--color-primary); display: block;}
+        .tech-title { font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--color-dark); }
+        .tech-desc { font-size: 0.95rem; color: #666; font-weight: 300; }
+
+        .feature-block { margin-top: 4rem; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); overflow: hidden; }
+        .feature-block h3 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--color-dark); }
+        .patent-img-container { width: 100%; max-width: 80%; margin: 0 auto; border-radius: 8px; }
+        .red-dot-img { max-width: 600px; border-radius: 4px; }
+
+        /* --- 媒體報導 --- */
+        .media-quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .media-item { border-left: 3px solid var(--color-primary); padding-left: 1.5rem; }
+        .media-text { font-style: italic; color: #555; margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.6;}
+        .media-source { font-weight: bold; color: var(--color-dark); font-family: var(--font-serif); }
+
+        /* --- 系列產品 --- */
+        .bg-grey { background-color: #eae8e4; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .product-link { display: block; text-decoration: none; color: inherit; }
+        .product-card { background: white; border-radius: 4px; overflow: hidden; height: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .img-placeholder { width: 100%; aspect-ratio: 16/9; background-color: var(--color-primary); background-size: cover; background-position: center; position: relative; }
+        .img-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.2); opacity: 0; transition: 0.3s; display: flex; align-items: center; justify-content: center; color: white; letter-spacing: 2px; }
+        .img-overlay::after { content: '查看詳情'; border: 1px solid white; padding: 0.5rem 1.5rem; }
+        .product-card:hover .img-overlay { opacity: 1; }
+        .product-info { padding: 2rem; text-align: center; }
+        .product-series { font-size: 0.8rem; color: var(--color-primary); letter-spacing: 2px; margin-bottom: 0.5rem; display: block; }
+        .product-title { font-size: 1.5rem; margin-bottom: 0.8rem; }
+        .product-desc { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
+        .product-tag { font-size: 0.8rem; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: block;}
+
+        /* --- Footer (修正版：防止文字換行) --- */
+        footer { 
+            background-color: var(--color-dark); color: white; padding: 4rem 10% 2rem 10%; 
+            text-align: center; display: flex; flex-direction: column; align-items: center; 
+        }
+        
+        .footer-seal-container {
+            display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 2rem;
+        }
+        .footer-logo-img { 
+            width: 80px; height: auto; filter: brightness(0) invert(1); opacity: 0.95; margin-bottom: 0; 
+        }
+        
+        /* 修正：移除固定寬度，改為 auto，並強制不換行 */
+        .footer-text-group {
+            display: flex; flex-direction: column; align-items: center; line-height: 1.4;
+            border-top: 1px solid rgba(255,255,255,0.3); 
+            padding-top: 10px; 
+            width: auto; /* 修正點 */
+            white-space: nowrap; /* 修正點：強制不換行 */
+        }
+        
+        .footer-brand-ch {
+            font-family: var(--font-serif); font-size: 1.4rem; letter-spacing: 5px; text-indent: 5px; color: white; font-weight: 500;
+        }
+        .footer-brand-en {
+            font-family: var(--font-eng); font-size: 0.7rem; letter-spacing: 2px; color: rgba(255,255,255,0.7); margin-top: 2px;
+        }
+
+        .footer-quote { font-size: 0.9rem; opacity: 0.7; font-family: var(--font-serif); margin-bottom: 2rem; }
+        
+        .contact-info { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.9rem; opacity: 0.8; letter-spacing: 0.5px; }
+        .contact-item { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .contact-item a { border-bottom: 1px solid transparent; transition: 0.3s; }
+        .contact-item a:hover { border-bottom: 1px solid white; }
+        .copyright { font-size: 0.8rem; opacity: 0.5; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; padding-top: 1.5rem; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes dropDown { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(25px); opacity: 0; } }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .section { padding: 4rem 5%; }
+            .feature-block { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo-container">
+            <img src="LOGO.png" alt="靜川 Logo" class="nav-logo-img">
+            <div class="logo-text-group">
+                <span class="brand-ch">靜川活瓷</span>
+                <span class="brand-en">JINGCHUAN</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#about">關於我們</a>
+            <a href="#technology">活瓷科技</a>
+            <a href="#media">媒體報導</a>
+            <a href="#products">系列產品</a>
+            <a href="#contact">聯絡我們</a>
+        </div>
+    </nav>
+
+    <header id="hero">
+        <div id="canvas-container"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">靜川活瓷</h1>
+            <p class="hero-subtitle">JINGCHUAN LIVING PORCELAIN</p>
+            <br>
+            <p style="letter-spacing: 0.2rem; margin-top: 1rem;">靜下來，喝得更好。</p>
+        </div>
+        <div class="scroll-indicator">
+            <img src="./—Pngtree—blue crystal clear water droplets_5452568.png" alt="Scroll" class="scroll-drop">
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="section-header reveal">
+            <h2>關於靜川</h2>
+            <p>ABOUT JINGCHUAN</p>
+        </div>
+        <div class="about-content reveal">
+            <p class="about-quote">「在快慢之間，找回安定的力量」</p>
+            <p class="about-text">
+                在這個資訊爆炸、分秒必爭的時代，我們時常問自己：「理想的生活，該是什麼溫度？」有時，我們需要精準與效率，在城市的洪流中保持最佳狀態；有時，我們渴望放慢腳步，在茶香與器物的手感中，找回內心的平靜。
+            </p>
+            <p class="about-text">
+                靜川創立的初衷，便是希望成為您生活中的調節器。我們走訪科技重鎮，也深入古老窯場，更與世界級藝術殿堂對話，將「智能科技」、「東方美學」與「藝術典藏」融合，讓喝水不只是生理需求，更是一種把療癒帶著走的生活方式。
+            </p>
+            <p class="about-welcome">
+                歡迎來到靜川，願您在這裡，找到屬於您的生活頻率。
+            </p>
+        </div>
+    </section>
+
+    <section id="technology" class="section bg-grey">
+        <div class="section-header reveal">
+            <h2>活瓷科技</h2>
+            <p>TECHNOLOGY & PATENT</p>
+        </div>
+        <div class="tech-intro reveal">
+            <p><strong>原理：</strong> 活瓷是一種特殊燒製的陶瓷，能持續釋放遠紅外線與負離子，喚醒水的本質。</p>
+        </div>
+        <div class="tech-grid reveal">
+            <div class="tech-card">
+                <span class="tech-icon">💧</span>
+                <h3 class="tech-title">口感優化</h3>
+                <p class="tech-desc">細化水分子，讓飲品口感更滑順、甘甜。</p>
+            </div>
+            <div class="tech-card">
+                <span class="tech-icon">✨</span>
+                <h3 class="tech-title">純淨安心</h3>
+                <p class="tech-desc">天然材質燒製，無異味殘留，確保每一口飲品都純粹。</p>
+            </div>
+            <div class="tech-card">
+                <span class="tech-icon">🌿</span>
+                <h3 class="tech-title">健康平衡</h3>
+                <p class="tech-desc">遠紅外線有助於活化水質，為日常飲水帶來深層的健康。</p>
+            </div>
+        </div>
+        
+        <div class="feature-block reveal">
+            <h3>專利結構技術</h3>
+            <div class="patent-img-container">
+                <img src="patent.png" alt="靜川專利結構圖">
+            </div>
+        </div>
+
+        <div class="feature-block reveal" style="margin-top: 2rem;">
+            <h3>榮獲國際設計大獎認證</h3>
+            <p style="color: var(--color-primary); margin-bottom: 1rem;">Red Dot, iF Design Award</p>
+            <div class="red-dot-img">
+                <img src="reddot.png" alt="Red Dot Award Ceremony">
+            </div>
+        </div>
+    </section>
+
+    <section id="media" class="section" style="background: white;">
+        <div class="section-header reveal">
+            <h2>媒體報導</h2>
+            <p>MEDIA COVERAGE</p>
+        </div>
+        <div class="media-quote-grid reveal">
+            <div class="media-item">
+                <p class="media-text">「將傳統陶瓷工藝推向科技化的高峰，靜川重新定義了現代人的飲水體驗。」</p>
+                <p class="media-source">— 設計生活誌 Design Life</p>
+            </div>
+            <div class="media-item">
+                <p class="media-text">「不僅僅是杯子，更是一種生活的儀式感。靜川青的色調讓人感到無比平靜。」</p>
+                <p class="media-source">— 台北藝文週報</p>
+            </div>
+            <div class="media-item">
+                <p class="media-text">「專利活瓷結構令人驚艷，實測後的口感確實更加圓潤甘甜。」</p>
+                <p class="media-source">— TechHome 科技家居</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="section bg-grey">
+        <div class="section-header reveal">
+            <h2>系列產品</h2>
+            <p>COLLECTIONS</p>
+        </div>
+
+        <div class="gallery-grid reveal">
+            <a href="product.html?id=flow" class="product-link">
+                <div class="product-card">
+                    <div class="img-placeholder" style="background-image: url('Flow Tech.png');">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-series">FLOW-TECH</span>
+                        <h3 class="product-title">【流川智活】</h3>
+                        <p class="product-desc">給追求效率的你。<br>將科技化繁為簡，把療癒帶著走。</p>
+                        <span class="product-tag">智能顯溫 • 輕量化設計</span>
+                    </div>
+                </div>
+            </a>
+            <a href="product.html?id=calm" class="product-link">
+                <div class="product-card">
+                    <div class="img-placeholder" style="background-image: url('Calm Art.png');">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-series">CALM ART</span>
+                        <h3 class="product-title">【靜水清寂】</h3>
+                        <p class="product-desc">給嚮往寧靜的你。<br>日常裡的安定儀式，在觸摸間找回寧靜。</p>
+                        <span class="product-tag">經典水波紋 • 粗陶手感</span>
+                    </div>
+                </div>
+            </a>
+            <a href="product.html?id=art" class="product-link">
+                <div class="product-card">
+                    <div class="img-placeholder" style="background-image: url('Masterpiece.png');">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-series">ART COLLECTION</span>
+                        <h3 class="product-title">【藝境典藏】</h3>
+                        <p class="product-desc">給珍視情誼的你。<br>送一份安定與祝福，讓藝術的光采照亮生活。</p>
+                        <span class="product-tag">藝術家聯名 • 浮雕工藝</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-seal-container">
+            <img src="LOGO.png" alt="靜川 Logo" class="footer-logo-img">
+            <div class="footer-text-group">
+                <span class="footer-brand-ch">靜川活瓷</span>
+                <span class="footer-brand-en">JINGCHUAN</span>
+            </div>
+        </div>
+
+        <p class="footer-quote">願您今日如靜水般安穩</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">📍 台北市信義區松山路 999 號 (品牌概念店)</div>
+            <div class="contact-item">📞 02-2345-6789</div>
+            <div class="contact-item">✉️ <a href="mailto:service@jingchuan.com">service@jingchuan.com</a></div>
+            <div class="contact-item">🕒 週一至週五 10:00 - 18:00</div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2025 JingChuan Living Porcelain. All Rights Reserved. For Practice.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            reveals.forEach((reveal) => {
+                if (reveal.getBoundingClientRect().top < windowHeight - 150) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.getElementById('canvas-container').appendChild(canvas);
+        let width, height, waves = [];
+        
+        function initCanvas() {
+            width = window.innerWidth; height = window.innerHeight;
+            canvas.width = width; canvas.height = height;
+            waves = [];
+            for(let i=0; i<3; i++) waves.push({ y: height/2, length: 0.005+i*0.001, amplitude: 50+i*20, frequency: 0.01+i*0.005, offset: i*2 });
+        }
+        
+        let increment = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+            waves.forEach((wave, index) => {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(148, 189, 212, ${0.3 - index * 0.05})`; 
+                ctx.lineWidth = 2;
+                for (let x = 0; x < width; x++) {
+                    const y = wave.y + Math.sin(x * wave.length + increment * wave.frequency + wave.offset) * wave.amplitude;
+                    x===0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            });
+            increment += 1;
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); animate();
+    </script>
+</body>
+</html>
