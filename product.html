@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品詳情 | 靜川活瓷</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #94bdd4; 
+            --color-dark: #333F48;    
+            --color-bg: #F5F3EF;      
+            --font-serif: 'Noto Serif TC', serif;
+            --font-sans: 'Noto Sans TC', sans-serif;
+            --font-eng: 'Cinzel', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+        }
+
+        /* 導航 */
+        nav {
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(245, 243, 239, 0.95); border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav-logo-img { height: 50px; width: auto; mix-blend-mode: multiply; }
+        .back-link { font-size: 0.9rem; border-bottom: 1px solid currentColor; text-decoration: none; color: var(--color-dark); transition: 0.3s;}
+        .back-link:hover { opacity: 0.6; }
+
+        /* 主產品區 */
+        .product-detail-section { padding: 4rem 10%; min-height: 80vh; display: flex; align-items: center; justify-content: center; }
+        .product-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; width: 100%;
+            background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+        .product-image-col { display: flex; align-items: center; justify-content: center; background-color: #f8f8f8; border-radius: 4px; overflow: hidden; }
+        .product-img-full { width: 100%; height: auto; max-height: 500px; object-fit: cover; transition: transform 0.5s ease; }
+        .product-image-col:hover .product-img-full { transform: scale(1.05); }
+
+        .product-info-col { display: flex; flex-direction: column; justify-content: center; }
+        .p-series { font-family: var(--font-eng); color: var(--color-primary); letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .p-title { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--color-dark); line-height: 1.3;}
+        .p-slogan { font-size: 1rem; color: #888; margin-bottom: 1.5rem; font-weight: 500; }
+        .p-price { font-size: 1.5rem; font-weight: 500; margin-bottom: 2rem; color: var(--color-dark); }
+        .p-desc { margin-bottom: 2rem; color: #666; text-align: justify; }
+        
+        .p-features { list-style: none; margin-bottom: 2.5rem; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 1.5rem 0; }
+        .p-features li { margin-bottom: 0.5rem; display: flex; align-items: start; gap: 10px; font-size: 0.95rem; color: #555;}
+        .p-features li::before { content: '✨'; color: var(--color-primary); font-size: 1rem; line-height: 1.5; }
+
+        .btn-group { display: flex; gap: 1rem; }
+        .btn { padding: 1rem 2rem; border: none; cursor: pointer; font-size: 1rem; letter-spacing: 1px; transition: 0.3s; }
+        .btn-primary { background-color: var(--color-dark); color: white; flex: 2; }
+        .btn-primary:hover { background-color: var(--color-primary); }
+        .btn-outline { background-color: transparent; border: 1px solid var(--color-dark); color: var(--color-dark); flex: 1; }
+        .btn-outline:hover { background-color: #f0f0f0; }
+
+        /* --- 商品詳情區塊 --- */
+        .details-section { padding: 4rem 10%; background-color: white; text-align: center; }
+        .section-heading { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 1rem; color: var(--color-dark); border-bottom: 2px solid var(--color-bg); display: inline-block; padding-bottom: 10px; }
+        
+        .details-content { max-width: 900px; margin: 0 auto; text-align: left; }
+        
+        .designer-note {
+            background-color: #f9f9f9; padding: 2.5rem; border-radius: 8px; margin-bottom: 4rem;
+            border-left: 4px solid var(--color-primary); color: #555;
+        }
+        .designer-note h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--color-dark); font-family: var(--font-serif); display: flex; align-items: center; gap: 10px;}
+        .designer-note h3::before { content: '📝'; }
+        .designer-note p { font-style: italic; line-height: 1.8; }
+
+        .collage-img { width: 100%; border-radius: 8px; margin-bottom: 4rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+        .detail-block { margin-bottom: 4rem; }
+        .detail-block h3 { font-size: 1.5rem; color: var(--color-dark); margin-bottom: 1.5rem; font-family: var(--font-serif); border-bottom: 1px solid #eee; padding-bottom: 0.5rem;}
+        .detail-text p { margin-bottom: 1.5rem; color: #666; line-height: 1.8; text-align: justify; }
+        .detail-text strong { color: #333; font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 0.5rem; }
+
+        .detail-images-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 2rem; margin-bottom: 2rem;
+        }
+        .detail-img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; transition: 0.3s; }
+        .detail-img:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        .specs-list { background-color: var(--color-bg); padding: 2.5rem; border-radius: 8px; list-style: none; font-size: 0.95rem; }
+        .specs-list li { margin-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 0.5rem; display: flex; flex-wrap: wrap; }
+        .specs-list li strong { min-width: 80px; color: var(--color-dark); margin-right: 10px; }
+
+        /* --- FAQ 區塊 --- */
+        .faq-section { padding: 4rem 10%; background-color: #fff; border-top: 1px solid #eee; }
+        .faq-container { max-width: 900px; margin: 0 auto; }
+        .faq-item { margin-bottom: 2rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 1rem; }
+        .faq-q { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-dark); display: flex; gap: 10px;}
+        .faq-q::before { content: 'Q'; color: var(--color-primary); }
+        .faq-a { color: #666; padding-left: 1.5rem; text-align: justify; }
+
+        /* --- 顧客評價 --- */
+        .reviews-section { padding: 4rem 10%; background-color: var(--color-bg); }
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .review-card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .review-author { font-weight: bold; color: var(--color-dark); }
+        .review-stars { color: #d4af37; letter-spacing: 2px; } 
+        .review-text { color: #666; font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+
+        /* --- Footer --- */
+        footer { 
+            background-color: var(--color-dark); color: white; padding: 4rem 10% 2rem 10%; 
+            text-align: center; display: flex; flex-direction: column; align-items: center; 
+        }
+        .footer-logo-img { width: 80px; height: auto; filter: brightness(0) invert(1); opacity: 0.9; margin-bottom: 1rem; }
+        .footer-quote { font-size: 0.9rem; opacity: 0.7; font-family: var(--font-serif); margin-bottom: 2rem; }
+        .contact-info { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.9rem; opacity: 0.8; letter-spacing: 0.5px; }
+        .contact-item { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .contact-item a { border-bottom: 1px solid transparent; transition: 0.3s; }
+        .contact-item a:hover { border-bottom: 1px solid white; }
+        .copyright { font-size: 0.8rem; opacity: 0.5; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; padding-top: 1.5rem; }
+
+        @media (max-width: 900px) {
+            .product-container { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; }
+            .p-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo-container">
+            <img src="LOGO.png" alt="靜川 Logo" class="nav-logo-img">
+        </a>
+        <a href="index.html#products" class="back-link">← 返回系列產品</a>
+    </nav>
+
+    <section class="product-detail-section">
+        <div class="product-container">
+            <div class="product-image-col">
+                <img id="p-img" src="" alt="產品圖片" class="product-img-full">
+            </div>
+            <div class="product-info-col">
+                <span id="p-series" class="p-series">SERIES</span>
+                <h1 id="p-title" class="p-title">產品名稱</h1>
+                <p id="p-slogan" class="p-slogan">Slogan</p>
+                <div id="p-price" class="p-price">NT$ 0,000</div>
+                
+                <p id="p-desc" class="p-desc">產品介紹...</p>
+                
+                <ul id="p-features" class="p-features">
+                    </ul>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary">立即購買</button>
+                    <button class="btn btn-outline">加入購物車</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-section">
+        <h2 class="section-heading">商品詳情</h2>
+        <br><br>
+        <div class="details-content" id="details-content">
+            </div>
+    </section>
+
+    <section class="faq-section">
+        <h2 class="section-heading" style="text-align: center; border: none;">常見問題 FAQ</h2>
+        <div class="faq-container" id="faq-list">
+            </div>
+    </section>
+
+    <section class="reviews-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 class="section-heading" style="border: none;">顧客使用心得分享</h2>
+            <p style="color: #666;">來自使用者的真實回饋</p>
+        </div>
+        <div class="review-grid" id="reviews-container">
+            </div>
+    </section>
+
+    <footer id="contact">
+        <img src="LOGO.png" alt="靜川 Logo" class="footer-logo-img">
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.5rem;">靜川 JINGCHUAN</div>
+        <p class="footer-quote">「願您今日如靜水般安穩。」</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">📍 台北市信義區松山路 999 號 (品牌概念店)</div>
+            <div class="contact-item">📞 02-2345-6789</div>
+            <div class="contact-item">✉️ <a href="mailto:service@jingchuan.com">service@jingchuan.com</a></div>
+            <div class="contact-item">🕒 週一至週五 10:00 - 18:00</div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2025 JingChuan Living Porcelain. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 資料庫設定 (全數修正為 .png)
+        const products = {
+            'flow': {
+                series: 'FLOW-TECH SERIES',
+                title: '【流川智活】智能顯溫保溫瓶',
+                slogan: '數位時代的溫感伴侶｜智能顯溫・莫蘭迪色系・醫療級材質',
+                price: 'NT$ 1,280',
+                img: 'Flow Tech.png',
+                desc: '懂你的溫度，才是真正的貼心。在繁忙的城市節奏中，你需要的不只是一個容器，而是一個能隨時關照你的生活夥伴。【流川智活】系列，將科技融入日常，讓喝水這件小事，變得更聰明、更優雅。',
+                features: ['智能顯溫，一觸即知', '莫蘭迪色系，低調質感', '輕量化設計，健康隨行', 'SUS316 醫療級內膽'],
+                
+                // 詳細文案資料
+                noteTitle: '讓科技變得柔軟',
+                noteText: '「在這個數據化的時代，我們習慣了冰冷的屏幕，卻忘了水的溫度。設計【流川智活】時，我的初衷很簡單：消弭喝水前『試探溫度』的小焦慮。我們將精密的感溫晶片藏入瓶蓋，卻在外觀上選擇了低飽和度的莫蘭迪色系與親膚觸感。我希望它在功能上是『高科技』的，但在視覺與觸覺上，卻是『最懂你』的柔軟陪伴。」',
+                collage: 'product1.png',
+                detailImages: ['product1-1.png', 'product1-2.png', 'product1-3.png', 'product1-4.png'],
+                highlights: `
+                    <p><strong>專利顯溫，直覺守護：</strong>搭載高靈敏奈米感測晶片，無需充電、無需連線。指尖輕觸瓶蓋，0.5秒內即刻顯溫。無論是清晨醒腦的熱咖啡，還是運動後的冰涼補給，每一口都在您最舒適的溫度區間。</p>
+                    <p><strong>SUS 316 醫療級鋼材，純淨承諾：</strong>內膽全面升級為 SUS 316 醫療級不鏽鋼。相較於一般 304 不鏽鋼，它擁有更強的抗腐蝕與耐酸鹼能力。裝入檸檬水、中藥或茶飲，皆不易殘留異味或釋出金屬物質，守護每一滴飲水的純粹。</p>
+                    <p><strong>羽感輕量，隨行無負擔：</strong>採用雙層超薄壁真空技術，在維持高效保溫（6小時 ≥ 65°C）的同時，大幅減輕瓶身重量。流線型設計可輕鬆放入車用杯架或隨身包袋，完美契合現代人的移動效率。</p>
+                `,
+                specs: [
+                    '<strong>容量：</strong>450 ml',
+                    '<strong>材質：</strong>內膽 SUS 316 不鏽鋼 / 外殼 304 不鏽鋼 / 食品級 PP / 矽膠',
+                    '<strong>顏色：</strong>迷霧灰、藕粉色、寧靜藍、極簡白',
+                    '<strong>特色：</strong>智能顯溫(免充電)、親膚手感漆面、醫療級材質'
+                ],
+
+                faq: [
+                    { q: '智能顯溫瓶需要充電嗎？電池能維持多久？', a: '本系列採用高效能內置電池晶片，無需充電。在正常使用頻率下（每天觸碰顯示 20-30 次），電池壽命約可達 2-3 年。' },
+                    { q: '瓶蓋含有電子零件，可以水洗嗎？', a: '可以的。瓶蓋具有 IPX7 級防水設計，日常清洗沖水完全沒問題。但不建議長時間浸泡或放入洗碗機。' }
+                ],
+                reviews: [
+                    { name: '台北 陳小姐', stars: '★★★★★', text: '「上班通勤帶著它真的很方便，顯溫功能讓我不怕燙到舌頭，而且霧面質感同事都問在哪買的！」' },
+                    { name: '新竹 林先生', stars: '★★★★☆', text: '「重量比想像中輕很多，放在包包裡完全沒負擔。開車放在置杯架剛剛好。」' },
+                    { name: '台中 Wu Design', stars: '★★★★★', text: '「設計非常簡約，沒有多餘的裝飾，完全符合我的審美。去健身房帶著也很時尚。」' }
+                ]
+            },
+            'calm': {
+                series: 'CALM ART SERIES',
+                title: '【靜水清寂】手作粗陶茶器組',
+                slogan: '日常裡的安定儀式｜粗陶手感・水波紋理・禪意美學',
+                price: 'NT$ 1,580',
+                img: 'Calm Art.png',
+                desc: '世界越快，心則慢。當外在的聲音太過喧囂，我們都需要一個回歸內在的角落。【靜水清寂】系列取材自山川自然的靈感，將「靜」的哲學，揉進泥土的呼吸裡。',
+                features: ['粗陶手感，溫潤樸實', '水波紋理，禪意流動', '書法圖騰，東方美學', '人體工學執握設計'],
+
+                noteTitle: '觸摸大地的呼吸',
+                noteText: '「當世界越快，我們越渴望慢下來。這款產品的靈感來自於『枯山水』與『粗陶』。我們特意保留了材質原本的顆粒感，拒絕工業化過度的光滑。當你的手指滑過瓶身上的水波紋時，就像觸摸到大地的呼吸。我希望這不僅是一個杯子，而是你繁忙日常中，一個能讓你瞬間靜下來的開關。」',
+                collage: 'product2.png',
+                detailImages: ['product2-1.png', 'product2-2.png', 'product2-3.png', 'product2-4.png'],
+                highlights: `
+                    <p><strong>礦物砂漿塗層，深度復刻手感：</strong>採用特殊的礦物砂漿工藝，模擬出天然原礦粗陶的質樸肌理。這種微顆粒觸感不僅防滑，更帶有一種溫潤的摩擦力，讓每一次握持都充滿了「實體感」與安定力量。</p>
+                    <p><strong>禪意水波紋，指尖上的冥想：</strong>瓶身立體浮雕紋路，取法自東方園林中水的意象。線條深淺有致，光影在紋路間流動，賦予器物靜謐的動態美。觀之寧靜，觸之舒心。</p>
+                    <p><strong>內外兼修，實用與美學平衡：</strong>雖然外觀古樸，內膽則堅持採用現代工藝處理，表面毛細孔細緻，不易吸附茶垢或咖啡漬。搭配仿木紋質感的瓶蓋，將自然元素與實用機能完美結合。</p>
+                `,
+                specs: [
+                    '<strong>容量：</strong>400 ml',
+                    '<strong>材質：</strong>礦物砂漿質感塗層 / SUS 304/316 不鏽鋼內膽 / 仿木紋蓋',
+                    '<strong>款式：</strong>沉靜黑（水波紋）、樸實棕（枯山水）、自然米（書法意象）',
+                    '<strong>特色：</strong>立體浮雕工藝、防滑粗陶手感、東方禪意設計'
+                ],
+
+                faq: [
+                    { q: '粗陶材質的表面摸起來會很刮手嗎？', a: '不會的。我們保留了陶土原本的顆粒感，是為了增加手作溫潤的觸感，經過精細打磨，手感樸實但不刺手。' },
+                    { q: '這系列茶器容易殘留茶垢或咖啡漬嗎？', a: '內層皆經過高溫釉面處理，毛細孔細緻，不易吸附味道。建議使用後用清水沖洗並擦乾，即可常保如新。' }
+                ],
+                reviews: [
+                    { name: '台南 老茶房', stars: '★★★★★', text: '「這款杯子的手感真的太好了，粗陶的紋理摸起來很溫潤，讓喝茶變成一種享受。」' },
+                    { name: '高雄 張太太', stars: '★★★★★', text: '「活瓷真的有差！水喝起來感覺比較軟，比較甜。現在家裡客人都指定要用這個杯子。」' },
+                    { name: '宜蘭 民宿老闆', stars: '★★★★☆', text: '「買了一組放在民宿給客人用，大家都說很有質感，跟我們的日式風格很搭。」' }
+                ]
+            },
+            'art': {
+                series: 'ART COLLECTION',
+                title: '【藝境典藏】大師聯名浮雕瓷藝',
+                slogan: '送一份安定與祝福｜梵谷聯名・微浮雕工藝・骨瓷質感',
+                price: 'NT$ 2,680',
+                img: 'Masterpiece.png',
+                desc: '不只是器物，更是掌心裡的藝術館。將瞬息萬變的靈感，凝結為永恆的經典。攜手世界級博物館與藝術大師，以極致工藝向美學致敬。',
+                features: ['大師聯名：梵谷星夜系列', '微浮雕工藝，還原筆觸', '真金描邊 (Heraeus Gold)', '儀式感禮盒包裝'],
+
+                noteTitle: '掌心裡的流動藝術',
+                noteText: '「藝術不該只被隔離在博物館的玻璃櫃後。我們思考的是：如何還原梵谷筆下那燃燒的生命力？普通的平面印刷是做不到的。因此，我們挑戰了高難度的『微浮雕工藝』，讓油畫的筆觸在瓷器上立體重現。這不僅是向大師致敬，更是為了讓送禮的那份心意，擁有厚度、擁有溫度，足以傳世。」',
+                collage: 'product3.png',
+                detailImages: ['product3-3.png', 'product3-4.png'], 
+                highlights: `
+                    <p><strong>45% 高含量骨瓷，溫潤如玉：</strong>嚴選骨粉含量高達 45% 以上的頂級骨瓷（Bone China）。質地輕盈、透光性極佳，色澤呈現象牙般的溫潤乳白。輕敲杯壁，能聽到如鐘磬般清脆悅耳的「瓷音」，這是頂級瓷器的身份證明。</p>
+                    <p><strong>3D 微浮雕技術，指尖讀畫：</strong>拒絕平庸的貼花，我們運用專利 3D 浮雕技術，依據原作的筆觸走向進行層層堆疊燒製。當您閉眼觸摸，能真實感受到《星夜》漩渦的流轉或《向日葵》花瓣的捲曲，彷彿與百年前的藝術靈魂對話。</p>
+                    <p><strong>24K 真金描邊，尊榮加冕：</strong>杯口與底座邊緣，皆由資深匠人手工描繪德國進口 24K 真金水。經高溫燒製後，金彩熠熠生輝，抗氧化、不褪色，為這份藝術品增添了永恆的尊貴氣息。</p>
+                `,
+                specs: [
+                    '<strong>容量：</strong>480 ml',
+                    '<strong>材質：</strong>45%以上骨瓷(或高溫強化瓷) / 24K真金描邊 / SUS 304 不鏽鋼濾網(若有)',
+                    '<strong>款式：</strong>梵谷《星夜》、梵谷《向日葵》、梵谷《鳶尾花》',
+                    '<strong>包裝：</strong>博物館級典藏禮盒（附收藏證書/作品介紹卡）',
+                    '<strong>特色：</strong>正版授權、立體筆觸還原、高端禮贈'
+                ],
+
+                faq: [
+                    { q: '梵谷聯名款可以使用洗碗機清洗嗎？', a: '為了保護精緻的「浮雕工藝」與金屬描邊，強烈建議手洗，避免使用鋼絲球刷洗或放入洗碗機。' },
+                    { q: '購買此系列會有專門的包裝嗎？', a: '是的！全系列皆附贈專屬「藝術禮盒」與提袋，內含防撞保護層與作品介紹卡，非常適合送禮。' }
+                ],
+                reviews: [
+                    { name: '收藏家 郭先生', stars: '★★★★★', text: '「浮雕的工藝非常細緻，星夜的筆觸摸得出來！包裝也很用心，送禮非常有面子。」' },
+                    { name: '藝術系 學生', stars: '★★★★★', text: '「能在保溫瓶上看到這麼還原的梵谷畫作太感動了，在畫室用這款杯子特別有感覺。」' },
+                    { name: '台北 李經理', stars: '★★★★☆', text: '「在咖啡廳拿出來用，回頭率超高。買來送給國外客戶，他們非常喜歡這種結合藝術的設計。」' }
+                ]
+            }
+        };
+
+        const commonFaq = [
+            { q: '請問下單後多久會出貨？', a: '現貨商品將於下單後 1-2 個工作天內寄出。若為預購商品，請參照商品頁面標示。' },
+            { q: '商品有提供保固或鑑賞期嗎？', a: '我們提供 7 天鑑賞期（非試用期）。【流川智活】系列的電子溫顯功能享有 6 個月原廠保固。' }
+        ];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (productId && products[productId]) {
+            const data = products[productId];
+            
+            // 填充主資訊
+            document.getElementById('p-series').textContent = data.series;
+            document.getElementById('p-title').textContent = data.title;
+            document.getElementById('p-slogan').textContent = data.slogan;
+            document.getElementById('p-price').textContent = data.price;
+            document.getElementById('p-desc').textContent = data.desc;
+            document.getElementById('p-img').src = data.img;
+
+            // 填充商品詳情 (設計師筆記、拼貼圖、核心亮點、細節圖、規格)
+            const detailsDiv = document.getElementById('details-content');
+            
+            // 1. 設計師筆記
+            let htmlContent = `
+                <div class="designer-note">
+                    <h3>設計師筆記：${data.noteTitle}</h3>
+                    <p>${data.noteText}</p>
+                </div>
+            `;
+
+            // 2. 情境拼貼圖
+            htmlContent += `<img src="${data.collage}" alt="生活場景" class="collage-img">`;
+
+            // 3. 核心亮點 (Deep Dive)
+            htmlContent += `
+                <div class="detail-block">
+                    <h3>工藝與材質 Deep Dive 🔍</h3>
+                    <div class="detail-text">${data.highlights}</div>
+                </div>
+            `;
+
+            // 4. 內文細節圖 (插入在亮點之後)
+            if(data.detailImages && data.detailImages.length > 0) {
+                htmlContent += `<div class="detail-images-grid">`;
+                data.detailImages.forEach(imgSrc => {
+                    htmlContent += `<img src="${imgSrc}" class="detail-img">`;
+                });
+                htmlContent += `</div>`;
+            }
+
+            // 5. 產品規格
+            htmlContent += `
+                <div class="detail-block">
+                    <h3>產品規格 Specs ⚙️</h3>
+                    <ul class="specs-list">`;
+            data.specs.forEach(spec => {
+                htmlContent += `<li>${spec}</li>`;
+            });
+            htmlContent += `</ul></div>`;
+
+            detailsDiv.innerHTML = htmlContent;
+
+            // 填充特色
+            const featureList = document.getElementById('p-features');
+            featureList.innerHTML = ''; 
+            data.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featureList.appendChild(li);
+            });
+
+            // 填充 FAQ (專屬 + 通用)
+            const faqContainer = document.getElementById('faq-list');
+            const allFaq = [...data.faq, ...commonFaq]; 
+            allFaq.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `<div class="faq-q">${item.q}</div><div class="faq-a">${item.a}</div>`;
+                faqContainer.appendChild(div);
+            });
+
+            // 填充評論
+            const reviewsContainer = document.getElementById('reviews-container');
+            data.reviews.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <div class="review-header">
+                        <span class="review-author">${review.name}</span>
+                        <span class="review-stars">${review.stars}</span>
+                    </div>
+                    <p class="review-text">${review.text}</p>
+                `;
+                reviewsContainer.appendChild(card);
+            });
+
+        } else {
+            // 如果網址沒有 ID，顯示錯誤或導回首頁
+            document.querySelector('.product-container').innerHTML = `
+                <div style="text-align:center; width:100%;">
+                    <h2>請從首頁選擇產品</h2>
+                    <a href="index.html" style="text-decoration:underline; color:var(--color-primary);">回到首頁</a>
+                </div>`;
+        }
+    </script>
+</body>
+</html>
